@@ -3,7 +3,7 @@ from tabulate import tabulate
 import time
 h = ['Possible Words']
 
-file = open(r"C:\Users\MysticMeerkat\Desktop\Desktop\Code Projects\Python programs\word_finder\words_dataset.txt",'r')
+file = open(r"words_dataset.txt",'r') #Enter the file address for the word dataset
 data_set = (((file.read()).lower()).replace('\n',' '))
 word_list = data_set.split()
 
