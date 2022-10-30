@@ -1,6 +1,7 @@
 # word_finder
-A program that finds the word from an incomplete one
-DOWNLOAD THE .txt FILE FROM THE REPOSITORY FOR IT TOO WORK
-MAKE SURE YOU ADD THE FILE ADDRESS OF THE TXT FILE TO THE CODE
+A program that finds the word from an incomplete one.
+Download the .txt to from the repository.
 
-THE DATASET OF WORDS WAS COMPILED BY @dwyl
+MAKE SURE YOU ADD THE FILE ADDRESS OF THE TXT FILE TO THE CODE!
+
+The dataset of words was compiled by @dwyl
