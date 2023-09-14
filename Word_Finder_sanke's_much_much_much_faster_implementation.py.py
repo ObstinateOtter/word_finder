@@ -8,7 +8,6 @@ import csv
 
 class FindWord:
     def __init__(self,sql_pass):
-
         self.sql_pass = sql_pass
         self.file_not_found = True
         self.wrong_pwd = True
@@ -22,18 +21,17 @@ class FindWord:
         root = tk.Tk()
         root.withdraw()
         
-
         file_auth_key = "auth:gAAAAABk_d3TUybVVg_uW-fJ8UeKoFVCS2apND_LdAq2lb5YiLJuDHdjLz6lxvXyrxjhqSKhdkzqs0vuOfzYDFKAGR18msM6Cg=="
+       
         try:
             self.auth = sql.connect(user = 'root', password = self.sql_pass)
             if self.auth.is_connected():
                 self.wrong_pwd = False
-            
+
             cursor = self.auth.cursor()
             cursor.execute('CREATE DATABASE IF NOT EXISTS WORD_DATASET')
             cursor.execute('USE WORD_DATASET')
             cursor.execute('create table dataset(words varchar(200));')
-
         except:
             pass
 
@@ -45,13 +43,12 @@ class FindWord:
                 self.word_list = ((self.file.read()).split('\n'))
                 
             while self.file_not_found:
-                    if self.word_list[0] == file_auth_key:   #authentication of correct file
+                    if self.word_list[0] == file_auth_key:                                       #authentication of correct file
                         self.file_not_found = False
                         break
                     else:
                         print('File does not seem to have a valid auth key.')
                         break
-
         except FileNotFoundError as e:
             print("File adress seems to be incorrect",e)
 
@@ -60,7 +57,7 @@ class FindWord:
                 self.reader = csv.reader(self.popular_csv)
                 self.records = []
 
-                for i in self.reader:
+                for i in self.reader:                                            
                     if i:
                         i[1] = int(i[1])
                         self.records.append(i)
@@ -69,11 +66,12 @@ class FindWord:
             f.close()
 
         print("Setup Succesful, You can continue with the program \n")
+        
     def WordExtractor(self,array):
         self.array = array
         msg = input("Enter the word[replace missing letters with '-']: ").lower()
-
         start = time.time()
+        
         if msg == '':
             ch = (input("\nExit?[yes/no]: ")).lower()
             if ch == 'yes':
@@ -84,7 +82,7 @@ class FindWord:
                     self.TextParser()  
                 else:
                     self.DatabaseParser()
-
+                    
         lst = list(msg)
         rmsg = msg.replace('-','')  
         rst = list(rmsg)
@@ -114,7 +112,6 @@ class FindWord:
         print(f'{len(f_ans)} results match out of {len(self.array)} ({time_taken*100} ms)')  
         print(tabulate(f_ans,headers=['Index','Possible Words'],tablefmt='fancy_grid'))
         search = int(input("which word were you looking for [enter the number] : "))
-
         word = ''.join([i[1] for i in f_ans if i[0] == search])
 
         found = False
@@ -152,10 +149,7 @@ class FindWord:
         print("This is what peak performance looks like")
         self.WordExtractor(self.word_list)
         
-        
     def Popularity_check(self):
-
-
         print('\n\t  Top 10 Most Searched Words\n')
         try:
             print(tabulate(sorted(self.records,reverse=True,key=lambda x: x[1]),headers=['Word','Count'],tablefmt='fancy_grid'))   
@@ -165,9 +159,7 @@ class FindWord:
             import word_finder
     
     def DatabaseParser(self):
-
         self.db = True
-
         self.auth = sql.connect(user = 'root', password = self.sql_pass,database = 'word_dataset')
         self.cursor = self.auth.cursor()
 
